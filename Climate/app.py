@@ -132,7 +132,7 @@ def update_plot(natural_factors, human_factors):
     fig = px.line(land_ocean_data, x='Year', y='5-year_Mean', title="Graph", color_discrete_sequence=['black'])
     fig = update_factors(fig, factors)
     fig.add_hline(y=0, fillcolor='lightgrey')
-    fig.update_yaxes(title='temperature', range=[-2.2, 2.2])
+    fig.update_yaxes(title='temperature (C)', range=[-1.2, 1.2])
 
     return fig
 

@@ -7,8 +7,8 @@ climate_forcings_data = pd.read_csv("./data/responses_to_climate_forcings.csv") 
 kelvin_to_celsius = lambda x: (x-273.15)
 kelvin_to_fahrenheit = lambda x: x*1.8 - 459.67
 celsius_to_fahrenheit = lambda x: x*1.8 + 32
-climate_forcings_data.iloc[:,1:] = climate_forcings_data.iloc[:,1:].apply(kelvin_to_fahrenheit)
-land_ocean_data.iloc[:,[1,2]] = land_ocean_data.iloc[:,[1,2]].apply(celsius_to_fahrenheit)
+climate_forcings_data.iloc[:,1:] = climate_forcings_data.iloc[:,1:].apply(kelvin_to_celsius)
+#land_ocean_data.iloc[:,[1,2]] = land_ocean_data.iloc[:,[1,2]].apply(celsius_to_fahrenheit)
 
 #remove data before 1880
 climate_forcings_data = climate_forcings_data[climate_forcings_data['Year'] >= 1880]
