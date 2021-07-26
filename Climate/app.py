@@ -36,44 +36,14 @@ app = dash.Dash(
 
 app.layout = html.Div([
 
+
     html.Div([
         dcc.Markdown('''
             ### Climate
 
             ----------
             '''),
-    ], style={'width': '100%', 'display': 'inline-block', 'padding': '0 20', 'vertical-align': 'middle', 'margin-bottom': 30, 'margin-right': 50, 'margin-left': 20}),
-
-    html.Div([
-        dcc.Markdown('''
-            Natural Factors
-            '''),
-        dcc.Checklist(
-            id='natural_factors',
-            options=[
-                {'label': 'Orbital Changes', 'value': 'OC'},
-                {'label': 'Solar', 'value': 'S'},
-                {'label': 'Volcanic', 'value': 'V'},
-            ],
-            value=[]
-        ),
-    ], style={'width': '100%', 'display': 'inline-block', 'padding': '0 20', 'vertical-align': 'middle', 'margin-bottom': 30, 'margin-right': 50, 'margin-left': 20}),
-
-    html.Div([
-        dcc.Markdown('''
-            Human Factors
-            '''),
-        dcc.Checklist(
-            id='human_factors',
-            options=[
-                {'label': 'Land Use', 'value': 'LU'},
-                {'label': 'Ozone', 'value': 'O'},
-                {'label': 'Aerosols', 'value': 'A'},
-                {'label': 'Greenhouse Gases', 'value': 'GG'}
-            ],
-            value=[]
-        ),
-    ], style={'width': '100%', 'display': 'inline-block', 'padding': '0 20', 'vertical-align': 'middle', 'margin-bottom': 30, 'margin-right': 50, 'margin-left': 20}),
+    ], style={'width': '80%', 'display': 'inline-block', 'padding': '0 20', 'vertical-align': 'middle', 'margin-bottom': 30, 'margin-right': 50, 'margin-left': 20}),
 
     html.Div([
         dcc.Graph(
@@ -88,7 +58,103 @@ app.layout = html.Div([
                 'modeBarButtonsToRemove': ['pan2d', 'select2d', 'lasso2d'],
             },
         ),
-    ], style={'width': '100%', 'display': 'inline-block'}),
+    ], style={'width': '80%', 'display': 'inline-block', 'vertical-align': 'middle'}),
+
+    html.Div([
+        dcc.Markdown('''
+            **Natural Factors**
+            ''',
+             style={'font-size': '14px'},),
+        dcc.Checklist(
+            id='orbital_changes',
+            options=[
+                {'label': 'Orbital Changes', 'value': 'OC'},
+            ],
+            value=[],
+            style={'color': 'deepskyblue', 'font-size': '14px'},
+        ),
+        dcc.Checklist(
+            id='solar',
+            options=[
+                {'label': 'Solar', 'value': 'S'},
+            ],
+            value=[],
+            style={'color': 'orange', 'font-size': '14px'},
+        ),
+        dcc.Checklist(
+            id='volcanic',
+            options=[
+                {'label': 'Volcanic', 'value': 'V'},
+            ],
+            value=[],
+            style={'color': 'red', 'font-size': '14px', 'margin-bottom': '20px'},
+        ),
+
+        dcc.Markdown('''
+            **Human Factors**
+            '''),
+        dcc.Checklist(
+            id='land_use',
+            options=[
+                {'label': 'Land Use', 'value': 'LU'},
+            ],
+            value=[],
+            style={'color': 'sienna', 'font-size': '14px'},
+        ),
+        dcc.Checklist(
+            id='ozone',
+            options=[
+                {'label': 'Ozone', 'value': 'O'},
+            ],
+            value=[],
+            style={'color': 'cadetblue', 'font-size': '14px'},
+        ),
+        dcc.Checklist(
+            id='aerosols',
+            options=[
+                {'label': 'Aerosols', 'value': 'A'},
+            ],
+            value=[],
+            style={'color': 'mediumslateblue', 'font-size': '14px'},
+        ),
+        dcc.Checklist(
+            id='greenhouse_gases',
+            options=[
+                {'label': 'Greenhouse Gases', 'value': 'GG'}
+            ],
+            value=[],
+            style={'color': 'seagreen', 'font-size': '14px', 'margin-bottom': '20px'},
+        ),
+        dcc.Markdown('''
+            **All Factors**
+            '''),
+        dcc.Checklist(
+            id='natural',
+            options=[
+                {'label': 'Natural', 'value': 'N'}
+            ],
+            value=[],
+            style={'color': 'purple', 'font-size': '14px'},
+        ),
+        dcc.Checklist(
+            id='human',
+            options=[
+                {'label': 'Human', 'value': 'H'}
+            ],
+            value=[],
+            style={'color': 'purple', 'font-size': '14px'},
+        ),
+        dcc.Checklist(
+            id='all',
+            options=[
+                {'label': 'All Forcings', 'value': 'ALL'}
+            ],
+            value=[],
+            style={'color': 'purple', 'font-size': '14px'},
+            #labelStyle={'color': 'white', 'font-size': '14px', 'background-color': 'purple'},
+            #inputStyle={'color': 'purple', 'background-color': 'white'},
+        ),
+    ], style={'width': '20%', 'display': 'inline-block', 'vertical-align': 'middle'}),
 
 
 ], style={'width': '1000px'})
@@ -98,41 +164,57 @@ app.layout = html.Div([
 def update_factors(fig, factors):
     #colors: https://www.w3schools.com/cssref/css_colors.asp
     if 'OC' in factors:
-        figOC = px.line(climate_forcings_data, x='Year', y='Orbital changes', title="Land Ocean", color_discrete_sequence=['deepskyblue'])
+        figOC = px.line(climate_forcings_data, x='Year', y='Orbital changes', color_discrete_sequence=['deepskyblue'])
         fig.add_trace(figOC.data[0])
     if 'S' in factors:
-        figS = px.line(climate_forcings_data, x='Year', y='Solar', title="Land Ocean", color_discrete_sequence=['orangered'])
+        figS = px.line(climate_forcings_data, x='Year', y='Solar', color_discrete_sequence=['orange'])
         fig.add_trace(figS.data[0])
     if 'V' in factors:
-        figV = px.line(climate_forcings_data, x='Year', y='Volcanic', title="Land Ocean", color_discrete_sequence=['red'])
+        figV = px.line(climate_forcings_data, x='Year', y='Volcanic', color_discrete_sequence=['red'])
         fig.add_trace(figV.data[0])
     if 'LU' in factors:
-        figLU = px.line(climate_forcings_data, x='Year', y='Land use', title="Land Ocean", color_discrete_sequence=['khaki'])
+        figLU = px.line(climate_forcings_data, x='Year', y='Land use', color_discrete_sequence=['sienna'])
         fig.add_trace(figLU.data[0])
     if 'O' in factors:
-        figO = px.line(climate_forcings_data, x='Year', y='Ozone', title="Land Ocean", color_discrete_sequence=['cadetblue'])
+        figO = px.line(climate_forcings_data, x='Year', y='Ozone', color_discrete_sequence=['cadetblue'])
         fig.add_trace(figO.data[0])
     if 'A' in factors:
-        figA = px.line(climate_forcings_data, x='Year', y='Anthropogenic tropospheric aerosol', title="Land Ocean", color_discrete_sequence=['mediumslateblue'])
+        figA = px.line(climate_forcings_data, x='Year', y='Anthropogenic tropospheric aerosol', color_discrete_sequence=['mediumslateblue'])
         fig.add_trace(figA.data[0])
     if 'GG' in factors:
-        figGG = px.line(climate_forcings_data, x='Year', y='Greenhouse gases', title="Land Ocean", color_discrete_sequence=['seagreen'])
+        figGG = px.line(climate_forcings_data, x='Year', y='Greenhouse gases', color_discrete_sequence=['seagreen'])
         fig.add_trace(figGG.data[0])
+    if 'N' in factors:
+        figN = px.line(climate_forcings_data, x='Year', y='Natural', color_discrete_sequence=['purple'])
+        fig.add_trace(figN.data[0])
+    if 'H' in factors:
+        figH = px.line(climate_forcings_data, x='Year', y='Human', color_discrete_sequence=['purple'])
+        fig.add_trace(figH.data[0])
+    if 'ALL' in factors:
+        figALL = px.line(climate_forcings_data, x='Year', y='All forcings', color_discrete_sequence=['purple'])
+        fig.add_trace(figALL.data[0])
     return fig
 
 
 @app.callback(
     Output(component_id='graph', component_property='figure'),
-    Input(component_id='natural_factors', component_property='value'),
-    Input(component_id='human_factors', component_property='value'),
+    Input(component_id='orbital_changes', component_property='value'),
+    Input(component_id='solar', component_property='value'),
+    Input(component_id='volcanic', component_property='value'),
+    Input(component_id='land_use', component_property='value'),
+    Input(component_id='ozone', component_property='value'),
+    Input(component_id='aerosols', component_property='value'),
+    Input(component_id='greenhouse_gases', component_property='value'),
+    Input(component_id='human', component_property='value'),
+    Input(component_id='natural', component_property='value'),
+    Input(component_id='all', component_property='value'),
 )
-def update_plot(natural_factors, human_factors):
-    factors = natural_factors + human_factors
-    #fig = px.line(land_ocean_data, x='Year', y='Annual_Mean', title="Land Ocean")
-    fig = px.line(land_ocean_data, x='Year', y='5-year_Mean', title="Graph", color_discrete_sequence=['black'])
+def update_plot(orbital_changes, solar, volcanic, land_use, ozone, aerosols, greenhouse_gases, human, natural, all):
+    factors = orbital_changes+solar+volcanic+land_use+ozone+aerosols+greenhouse_gases+human+natural+all
+    fig = px.line(land_ocean_data, x='Year', y='Annual_Mean', title="Graph", color_discrete_sequence=['black'])
+    fig.update_layout(plot_bgcolor='rgb(255, 255, 255)', yaxis_zeroline=True, yaxis_zerolinecolor='gainsboro', yaxis_showline=True, yaxis_linecolor='gainsboro')
     fig = update_factors(fig, factors)
-    fig.add_hline(y=0, fillcolor='lightgrey')
-    fig.update_yaxes(title='temperature (C)', range=[-1.2, 1.2])
+    fig.update_yaxes(title='Temperature (C)', range=[-1.2, 1.2])
 
     return fig
 
