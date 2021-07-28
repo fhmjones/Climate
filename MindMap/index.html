@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mind Map Assignment</title>
+    <link rel="stylesheet" href="main.css">
+    <style>
+        #div1, #div2 {
+          float: left;
+          width: 100px;
+          height: 35px;
+          margin: 10px;
+          padding: 10px;
+          border: 1px solid black;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Mind Map Assignment</h1>
+    <p>Consider what happens as each 'climate component' <b>increases</b> over time.</p>
+    <ol>
+        <li>Place them in a sequence showing which component causes other components to increase.</li>
+        <li>Are they likely to cause increase in <b>frequency</b> or <b>severity</b> or both?</li>
+        <li>An increase in which one of these "components" affects the earth's climate directly?</li>
+        <li>Finally, describe with a short paragraph the mechanism by which each climate component causes the hazard type to occur.</li>
+    </ol>
+    
+    <!--drag and drop from: https://www.w3schools.com/html/html5_draganddrop.asp-->
+    <h2>Drag and Drop</h2>
+    <p>Drag the image back and forth between the two div elements.</p>
+
+    <div id="div1" ondrop="drop(event)" ondragover="allowDrop(event)">
+    <img src="test_image.png" draggable="true" ondragstart="drag(event)" id="drag1" width="88" height="31">
+    </div>
+
+    <div id="div2" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+<script src="app.js"></script>
+<noscript>You need to enable JavaScript to view the full site.</noscript>
+</body>
+</html>
