@@ -14,18 +14,27 @@ ol {
     font-family: helvetica;
 }
 
-#climate_component, #hazard {
+
+#climate_components, #hazards {
     float: left;
-    width: 100px;
-    height: 35px;
+    width: 300px;
+    height: 200px;
     margin: 10px;
     padding: 10px;
+    border: 1px solid black;
+}
+#cause_effect_chain {
+    float: left;
+    width: 800px;
+    height: 200px;
+    margin: 10px;
+    padding: 10px;
+    border: 1px solid black;
 }
 #cause_effect {
     float: left;
     width: 100px;
     height: 70px;
-    
     padding: 10px;
     border: 1px solid black;
 }
