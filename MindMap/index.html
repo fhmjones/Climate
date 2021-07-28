@@ -14,45 +14,50 @@
     <ol>
         <li>Place them in a sequence showing which component causes other components to increase.</li>
         <li>Are they likely to cause increase in <b>frequency</b> or <b>severity</b> or both?</li>
-        <li>An increase in which one of these "components" affects the earth's climate directly?</li>
+        <li>An increase in which one of these components affects the earth's climate directly?</li>
         <li>Finally, describe with a short paragraph the mechanism by which each climate component causes the hazard type to occur.</li>
     </ol>
     
     <!--drag and drop from: https://www.w3schools.com/html/html5_draganddrop.asp-->
     
     <h3>Climate Components:</h3>
-    <div id="cc1" ondrop="drop(event)" ondragover="allowDrop(event)">
-        <img src="./images/agriculture.png" draggable="true" ondragstart="drag(event)" id="drag1" width="88" height="31">
+    <div id="climate_component" ondrop="drop(event)" ondragover="allowDrop(event)">
+        <img src="./images/agriculture.png" draggable="true" ondragstart="drag(event)" id="agriculture" width="88" height="31">
     </div>
-    <div id="cc2" ondrop="drop(event)" ondragover="allowDrop(event)">
-        <img src="./images/co2.png" draggable="true" ondragstart="drag(event)" id="drag2" width="88" height="31">
+    <div id="climate_component" ondrop="drop(event)" ondragover="allowDrop(event)">
+        <img src="./images/co2.png" draggable="true" ondragstart="drag(event)" id="co2" width="88" height="31">
     </div>
-    <div id="cc3" ondrop="drop(event)" ondragover="allowDrop(event)">
-        <img src="./images/human_population.png" draggable="true" ondragstart="drag(event)" id="drag3" width="88" height="31">
+    <div id="climate_component" ondrop="drop(event)" ondragover="allowDrop(event)">
+        <img src="./images/human_population.png" draggable="true" ondragstart="drag(event)" id="human_population" width="88" height="31">
     </div>
-    <div id="cc4" ondrop="drop(event)" ondragover="allowDrop(event)">
-        <img src="./images/industrial_activity.png" draggable="true" ondragstart="drag(event)" id="drag4" width="88" height="31">
+    <div id="climate_component" ondrop="drop(event)" ondragover="allowDrop(event)">
+        <img src="./images/industrial_activity.png" draggable="true" ondragstart="drag(event)" id="industrial_activity" width="88" height="31">
     </div>
-    <div id="cc5" ondrop="drop(event)" ondragover="allowDrop(event)">
-        <img src="./images/temperature.png" draggable="true" ondragstart="drag(event)" id="drag5" width="88" height="31">
+    <div id="climate_component" ondrop="drop(event)" ondragover="allowDrop(event)">
+        <img src="./images/temperature.png" draggable="true" ondragstart="drag(event)" id="temperature" width="88" height="31">
     </div>
 
     <br><br><br><br/><br/>    
     <h3>Hazards:</h3>
-    <div id="haz1" ondrop="drop(event)" ondragover="allowDrop(event)">
-        <img src="./images/sea_level.png" draggable="true" ondragstart="drag(event)" id="drag6" width="88" height="31">
+    <div id="hazard" ondrop="drop(event)" ondragover="allowDrop(event)">
+        <img src="./images/sea_level.png" draggable="true" ondragstart="drag(event)" id="sea_level" width="88" height="31">
     </div>
-    <div id="haz2" ondrop="drop(event)" ondragover="allowDrop(event)">
-        <img src="./images/storms.png" draggable="true" ondragstart="drag(event)" id="drag7" width="88" height="31">
+    <div id="hazard" ondrop="drop(event)" ondragover="allowDrop(event)">
+        <img src="./images/storms.png" draggable="true" ondragstart="drag(event)" id="storms" width="88" height="31">
     </div>
     
     <br><br><br><br/><br/>
     <h3>Cause and Effect Chain:</h3>
-    <div id="ce1" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
-    <div id="ce2" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
-    <div id="ce3" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
-    <div id="ce4" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
-    <div id="ce5" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+    
+    <div id="cause_effect" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+    <div id="arrow"> <img src="./images/right_arrow.png" width="30" height="20"> </div>
+    <div id="cause_effect" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+    <div id="arrow"> <img src="./images/right_arrow.png" width="30" height="20"> </div>
+    <div id="cause_effect" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+    <div id="arrow"> <img src="./images/right_arrow.png" width="30" height="20"> </div>
+    <div id="cause_effect" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+    <div id="arrow"> <img src="./images/right_arrow.png" width="30" height="20"> </div>
+    <div id="cause_effect" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
 
 <script src="app.js"></script>
 <noscript>You need to enable JavaScript to view the full site.</noscript>

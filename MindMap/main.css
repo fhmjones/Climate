@@ -14,11 +14,25 @@ ol {
     font-family: helvetica;
 }
 
-div {
+#climate_component, #hazard {
     float: left;
     width: 100px;
     height: 35px;
     margin: 10px;
     padding: 10px;
+}
+#cause_effect {
+    float: left;
+    width: 100px;
+    height: 70px;
+    margin: 10px;
+    padding: 10px;
     border: 1px solid black;
+}
+#arrow {
+    float: left;
+    width: 30px;
+    height: 20px;
+    margin: 10px;
+    padding: 10px;
 }
