@@ -84,6 +84,7 @@ app.layout = html.Div([
                 {'label': 'Volcanic', 'value': 'V'}
             ],
             value=[],
+            style={'display':'none'}
         ),
         dcc.RadioItems(
             id='natural_radiobuttons',
@@ -100,17 +101,18 @@ app.layout = html.Div([
         dcc.Checklist(
             id='human_checklist',
             options=[
-                {'label': 'Land_Use', 'value': 'LU'},
+                {'label': 'Land Use', 'value': 'LU'},
                 {'label': 'Ozone', 'value': 'O'},
                 {'label': 'Aerosols', 'value': 'A'},
                 {'label': 'Greenhouse Gases', 'value': 'GG'},
             ],
             value=[],
+            style={'display':'none'}
         ),
         dcc.RadioItems(
             id='human_radiobuttons',
             options=[
-                {'label': 'Land_Use', 'value': 'LU'},
+                {'label': 'Land Use', 'value': 'LU'},
                 {'label': 'Ozone', 'value': 'O'},
                 {'label': 'Aerosols', 'value': 'A'},
                 {'label': 'Greenhouse Gases', 'value': 'GG'},
@@ -128,6 +130,7 @@ app.layout = html.Div([
                 {'label': 'All Forcings', 'value': 'ALL'}
             ],
             value=[],
+            style={'display':'none'}
         ),
         dcc.RadioItems(
             id='all_radiobuttons',
@@ -140,10 +143,76 @@ app.layout = html.Div([
 
     ], style={'width': '20%', 'display': 'inline-block', 'vertical-align': 'middle'}),
 
+    html.Div([
+        dcc.Markdown(
+            children='''**Text**''',
+            id='description',
+            style={'font-size': '14px'},),
+    ])
+
 
 ], style={'width': '1000px'})
 
 
+
+@app.callback(
+    Output(component_id='description', component_property='children'),
+    Input(component_id='graph_type', component_property='value'),
+    Input(component_id='natural_radiobuttons', component_property='value'),
+    Input(component_id='human_radiobuttons', component_property='value'),
+    Input(component_id='all_radiobuttons', component_property='value'),
+)
+def update_description(graph_type, natural, human, all):
+    if graph_type == 'learn':
+        output = ''''''
+        if natural == 'OC':
+            output += '''
+            **The Earth's Orbit**:  
+            The Earth wobbles on its axis, and its tilt and orbit change over many thousands of years, pushing the climate into and out of ice ages.  
+            '''
+        elif natural == 'S':
+            output += '''
+            **The Sun**:  
+            The sun's temperature varies over decades and centuries.  
+            '''
+        elif natural == 'V':
+            output += '''
+            **Volcanoes**  
+            '''
+
+        if human == 'LU':
+            output += '''
+            **Deforestation**:  
+            Humans have cut, plowed, and paved more than hald the Earth's land surface. Dark forests are yielding to lighter patches, which reflect more sunlight.  
+            '''
+        elif human == 'O':
+            output += '''
+            **Ozone Pollution**:  
+            Natural ozone high in the atmosphere blocks harmful sunlight. Closer to the Earth, ozone is created by pollution and traps heat.  
+            '''
+        elif human == 'A':
+            output += '''
+            **Aerosol Polution**  
+            '''
+        elif human == 'GG':
+            output += '''
+            **Greenhouse Gases**  
+            '''
+
+        if all == 'N':
+            output += '''
+            **Natural**  
+            '''
+        elif all == 'H':
+            output += '''
+            **Human**  
+            '''
+        elif all == 'ALL':
+            output += '''
+            **All**  
+            '''
+
+        return [output]
 
 for i in ['natural_checklist', 'human_checklist', 'all_checklist']:
     @app.callback(
