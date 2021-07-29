@@ -33,7 +33,6 @@ app = dash.Dash(
     external_stylesheets=external_stylesheets
 )
 
-
 app.layout = html.Div([
 
 
@@ -44,6 +43,17 @@ app.layout = html.Div([
             ----------
             '''),
     ], style={'width': '80%', 'display': 'inline-block', 'padding': '0 20', 'vertical-align': 'middle', 'margin-bottom': 30, 'margin-right': 50, 'margin-left': 20}),
+
+    html.Div([
+        dcc.RadioItems(
+            id='graph_type',
+            options=[
+                {'label': 'Learn', 'value': 'learn'},
+                {'label': 'Explore', 'value': 'explore'}
+            ],
+            value='learn'
+        )
+    ], style={'width': '80%', 'display': 'inline-block', 'padding': '0 20', 'vertical-align': 'middle', 'margin-bottom': 30, 'margin-right': 50, 'margin-left': 20} ),
 
     html.Div([
         dcc.Graph(
@@ -60,106 +70,101 @@ app.layout = html.Div([
         ),
     ], style={'width': '80%', 'display': 'inline-block', 'vertical-align': 'middle'}),
 
+    #styling the checklists/radiobuttons: https://community.plotly.com/t/dcc-radioitems-and-label-style/26358/2
     html.Div([
         dcc.Markdown('''
             **Natural Factors**
             ''',
              style={'font-size': '14px'},),
         dcc.Checklist(
-            id='orbital_changes',
+            id='natural_checklist',
             options=[
                 {'label': 'Orbital Changes', 'value': 'OC'},
-            ],
-            value=[],
-            style={'color': 'deepskyblue', 'font-size': '14px'},
-        ),
-        dcc.Checklist(
-            id='solar',
-            options=[
                 {'label': 'Solar', 'value': 'S'},
+                {'label': 'Volcanic', 'value': 'V'}
             ],
             value=[],
-            style={'color': 'orange', 'font-size': '14px'},
         ),
-        dcc.Checklist(
-            id='volcanic',
+        dcc.RadioItems(
+            id='natural_radiobuttons',
             options=[
-                {'label': 'Volcanic', 'value': 'V'},
+                {'label': 'Orbital Changes', 'value': 'OC'},
+                {'label': 'Solar', 'value': 'S'},
+                {'label': 'Volcanic', 'value': 'V'}
             ],
-            value=[],
-            style={'color': 'red', 'font-size': '14px', 'margin-bottom': '20px'},
         ),
 
         dcc.Markdown('''
             **Human Factors**
             '''),
         dcc.Checklist(
-            id='land_use',
+            id='human_checklist',
             options=[
-                {'label': 'Land Use', 'value': 'LU'},
-            ],
-            value=[],
-            style={'color': 'sienna', 'font-size': '14px'},
-        ),
-        dcc.Checklist(
-            id='ozone',
-            options=[
+                {'label': 'Land_Use', 'value': 'LU'},
                 {'label': 'Ozone', 'value': 'O'},
-            ],
-            value=[],
-            style={'color': 'cadetblue', 'font-size': '14px'},
-        ),
-        dcc.Checklist(
-            id='aerosols',
-            options=[
                 {'label': 'Aerosols', 'value': 'A'},
+                {'label': 'Greenhouse Gases', 'value': 'GG'},
             ],
             value=[],
-            style={'color': 'mediumslateblue', 'font-size': '14px'},
         ),
-        dcc.Checklist(
-            id='greenhouse_gases',
+        dcc.RadioItems(
+            id='human_radiobuttons',
             options=[
-                {'label': 'Greenhouse Gases', 'value': 'GG'}
+                {'label': 'Land_Use', 'value': 'LU'},
+                {'label': 'Ozone', 'value': 'O'},
+                {'label': 'Aerosols', 'value': 'A'},
+                {'label': 'Greenhouse Gases', 'value': 'GG'},
             ],
-            value=[],
-            style={'color': 'seagreen', 'font-size': '14px', 'margin-bottom': '20px'},
         ),
+
         dcc.Markdown('''
             **All Factors**
             '''),
         dcc.Checklist(
-            id='natural',
+            id='all_checklist',
             options=[
-                {'label': 'Natural', 'value': 'N'}
-            ],
-            value=[],
-            style={'color': 'purple', 'font-size': '14px'},
-        ),
-        dcc.Checklist(
-            id='human',
-            options=[
-                {'label': 'Human', 'value': 'H'}
-            ],
-            value=[],
-            style={'color': 'purple', 'font-size': '14px'},
-        ),
-        dcc.Checklist(
-            id='all',
-            options=[
+                {'label': 'Natural', 'value': 'N'},
+                {'label': 'Human', 'value': 'H'},
                 {'label': 'All Forcings', 'value': 'ALL'}
             ],
             value=[],
-            style={'color': 'purple', 'font-size': '14px'},
-            #labelStyle={'color': 'white', 'font-size': '14px', 'background-color': 'purple'},
-            #inputStyle={'color': 'purple', 'background-color': 'white'},
         ),
+        dcc.RadioItems(
+            id='all_radiobuttons',
+            options=[
+                {'label': 'Natural', 'value': 'N'},
+                {'label': 'Human', 'value': 'H'},
+                {'label': 'All Forcings', 'value': 'ALL'}
+            ],
+        ),
+
     ], style={'width': '20%', 'display': 'inline-block', 'vertical-align': 'middle'}),
 
 
 ], style={'width': '1000px'})
 
 
+
+for i in ['natural_checklist', 'human_checklist', 'all_checklist']:
+    @app.callback(
+        Output(component_id=i, component_property='style'),
+        Input('graph_type', 'value'),
+    )
+    def update_graph_type(graph_type):
+        if graph_type == 'learn':
+            return {'display':'none'}
+        elif graph_type == 'explore':
+            return {'display':'inline'}
+for i in ['natural_radiobuttons', 'human_radiobuttons', 'all_radiobuttons']:
+    @app.callback(
+        Output(component_id=i, component_property='style'),
+        Input('graph_type', 'value'),
+    )
+    def update_graph_type(graph_type):
+        if graph_type == 'learn':
+            return {'display':'inline'}
+        elif graph_type == 'explore':
+            return {'display':'none'}
 
 def update_factors(fig, factors):
     #colors: https://www.w3schools.com/cssref/css_colors.asp
@@ -198,19 +203,19 @@ def update_factors(fig, factors):
 
 @app.callback(
     Output(component_id='graph', component_property='figure'),
-    Input(component_id='orbital_changes', component_property='value'),
-    Input(component_id='solar', component_property='value'),
-    Input(component_id='volcanic', component_property='value'),
-    Input(component_id='land_use', component_property='value'),
-    Input(component_id='ozone', component_property='value'),
-    Input(component_id='aerosols', component_property='value'),
-    Input(component_id='greenhouse_gases', component_property='value'),
-    Input(component_id='human', component_property='value'),
-    Input(component_id='natural', component_property='value'),
-    Input(component_id='all', component_property='value'),
+    Input(component_id='graph_type', component_property='value'),
+    Input(component_id='natural_checklist', component_property='value'),
+    Input(component_id='human_checklist', component_property='value'),
+    Input(component_id='all_checklist', component_property='value'),
+    Input(component_id='natural_radiobuttons', component_property='value'),
+    Input(component_id='human_radiobuttons', component_property='value'),
+    Input(component_id='all_radiobuttons', component_property='value'),
 )
-def update_plot(orbital_changes, solar, volcanic, land_use, ozone, aerosols, greenhouse_gases, human, natural, all):
-    factors = orbital_changes+solar+volcanic+land_use+ozone+aerosols+greenhouse_gases+human+natural+all
+def update_plot(graph_type, natural_checklist, human_checklist, all_checklist, natural_radiobuttons, human_radiobuttons, all_radiobuttons):
+    if graph_type == 'learn':
+        factors = [natural_radiobuttons] + [human_radiobuttons] + [all_radiobuttons]
+    elif graph_type == 'explore':
+        factors = natural_checklist + human_checklist + all_checklist
     fig = px.line(land_ocean_data, x='Year', y='Annual_Mean', title="Graph", color_discrete_sequence=['black'])
     fig.update_layout(plot_bgcolor='rgb(255, 255, 255)', yaxis_zeroline=True, yaxis_zerolinecolor='gainsboro', yaxis_showline=True, yaxis_linecolor='gainsboro')
     fig = update_factors(fig, factors)
