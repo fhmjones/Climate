@@ -49,13 +49,20 @@
     </div>
 
     <div class="page1">
-        <p>Consider what happens as each climate component <b>increases</b> over time.</p>
-        <ol>
-            <li>Place them in a sequence showing which component causes other components to increase.</li>
-            <li>Are they likely to cause increase in <b>frequency</b> or <b>severity</b> or both?</li>
-            <li>An increase in which one of these components affects the earth's climate directly?</li>
-            <li>Finally, describe with a short paragraph the mechanism by which each climate component causes the hazard type to occur.</li>
-        </ol>
+        <p>Consider what happens as each climate component <b>increases</b> over time. 
+            Place them in a sequence showing which component causes other components to increase.</p>
+    </div>
+
+    <div class="page2">
+        <p>Describe with a short paragraph the mechanism by which each climate component causes other components to increase.</p>
+    </div>
+
+    <div class="page3">
+        <p>Consider how increases in these factors could affect natural hazards.</p>
+    </div>
+
+    <div class="page5">
+        <p>Write 1 or 2 sentences to summarize an important lesson learned by considering the relatopnships between causative factors, natural hazards, and between the hazards themselves.</p>
     </div>
 
     <div class="page6">
@@ -65,7 +72,7 @@
     
     <!--drag and drop from: https://www.w3schools.com/html/html5_draganddrop.asp-->
     <!--Climate Components-->
-    <div class="page1 page2" id="climate_components" ondrop="drop(event)" ondragover="allowDrop(event)">
+    <div class="page1" id="climate_components" ondrop="drop(event)" ondragover="allowDrop(event)">
         <p><b>Climate Components:</b></p>
         <img src="./images/agriculture.png" draggable="true" ondragstart="drag(event)" id="agriculture" width="88" height="31">
         <img src="./images/co2.png" draggable="true" ondragstart="drag(event)" id="co2" width="88" height="31">
@@ -84,7 +91,7 @@
 
     
     <!--Chain Layout-->
-    <div class="page1 page2 page3" id="cause_effect_chain">
+    <div class="page1 page2 page3 page6" id="cause_effect_chain">
         <p><b>Cause-Effect Chain:</b></p>
         <div id="cause_effect" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
         <div id="arrow"><p>&#129034;</p></div>
@@ -98,11 +105,16 @@
     </div>
     
     <!--Textboxes-->
-    <div class="page2" id="textboxes">
+    <div class="page2 page6" id="textboxes">
         <textarea id="textbox" rows="5" cols="33"></textarea>
         <textarea id="textbox" rows="5" cols="33"></textarea>
         <textarea id="textbox" rows="5" cols="33"></textarea>
         <textarea id="textbox" rows="5" cols="33"></textarea>
+    </div>
+
+    <!--Short Answer-->
+    <div class="page5 page6">
+        <textarea id="short_answer" rows="20" cols="80"></textarea>
     </div>
 
 

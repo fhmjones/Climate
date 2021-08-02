@@ -72,6 +72,7 @@ function gotoPage(pageNum) {
   update_page(pageNum)
 }
 
+//Update the page so it only shows the relevant elements
 function update_page(current_page) {
   //document.getElementById('log').innerHTML += current_page;
   // Set elements hidden first so that sections that belong to multiple pages are displayed
@@ -117,3 +118,6 @@ function update_visibility(other_pages, current_page) {
       current_page[i].style.display = 'block';
     }
 }
+
+//initialize the page
+window.onload = update_page(1)

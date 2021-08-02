@@ -141,3 +141,9 @@ body {
     width: 155px;
     height: 70px;
 }
+#short_answer {
+    text-align: left;
+    float: left;
+    width: 500px;
+    height: 200px;
+}
