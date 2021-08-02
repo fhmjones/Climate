@@ -9,6 +9,9 @@
 </head>
 
 <body>
+
+<div id="log"></div>
+
 <!--Pagination-->
 <div class="pindicator">
     <div class="bullet current">
@@ -37,20 +40,32 @@
     </div>
   </div>
 
-    <h1>Drag and Drop Assignment</h1>
 
-    <p>Consider what happens as each climate component <b>increases</b> over time.</p>
-    <ol>
-        <li>Place them in a sequence showing which component causes other components to increase.</li>
-        <li>Are they likely to cause increase in <b>frequency</b> or <b>severity</b> or both?</li>
-        <li>An increase in which one of these components affects the earth's climate directly?</li>
-        <li>Finally, describe with a short paragraph the mechanism by which each climate component causes the hazard type to occur.</li>
-    </ol>
+
+  <!--PAGES-->
+    <!--Instructions-->
+    <div>
+        <h1>Drag and Drop Assignment</h1>
+    </div>
+
+    <div class="page1">
+        <p>Consider what happens as each climate component <b>increases</b> over time.</p>
+        <ol>
+            <li>Place them in a sequence showing which component causes other components to increase.</li>
+            <li>Are they likely to cause increase in <b>frequency</b> or <b>severity</b> or both?</li>
+            <li>An increase in which one of these components affects the earth's climate directly?</li>
+            <li>Finally, describe with a short paragraph the mechanism by which each climate component causes the hazard type to occur.</li>
+        </ol>
+    </div>
+
+    <div class="page6">
+        <p>Instructions on how to submit.</p>
+    </div>
+
     
     <!--drag and drop from: https://www.w3schools.com/html/html5_draganddrop.asp-->
-    
-    
-    <div id="climate_components" ondrop="drop(event)" ondragover="allowDrop(event)">
+    <!--Climate Components-->
+    <div class="page1 page2" id="climate_components" ondrop="drop(event)" ondragover="allowDrop(event)">
         <p><b>Climate Components:</b></p>
         <img src="./images/agriculture.png" draggable="true" ondragstart="drag(event)" id="agriculture" width="88" height="31">
         <img src="./images/co2.png" draggable="true" ondragstart="drag(event)" id="co2" width="88" height="31">
@@ -60,16 +75,16 @@
     </div>
 
     
-    
-    <div id="hazards" ondrop="drop(event)" ondragover="allowDrop(event)">
+    <!--Hazards-->
+    <div class="page3" id="hazards" ondrop="drop(event)" ondragover="allowDrop(event)">
         <p><b>Hazards:</b></p>
         <img src="./images/sea_level.png" draggable="true" ondragstart="drag(event)" id="sea_level" width="88" height="31">
         <img src="./images/storms.png" draggable="true" ondragstart="drag(event)" id="storms" width="88" height="31">
     </div>
 
     
-    
-    <div id="cause_effect_chain">
+    <!--Chain Layout-->
+    <div class="page1 page2 page3" id="cause_effect_chain">
         <p><b>Cause-Effect Chain:</b></p>
         <div id="cause_effect" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
         <div id="arrow"><p>&#129034;</p></div>
@@ -81,21 +96,26 @@
         <div id="arrow"><p>&#129034;</p></div>
         <div id="cause_effect" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
     </div>
-
-    <div id="textboxes">
+    
+    <!--Textboxes-->
+    <div class="page2" id="textboxes">
         <textarea id="textbox" rows="5" cols="33"></textarea>
         <textarea id="textbox" rows="5" cols="33"></textarea>
         <textarea id="textbox" rows="5" cols="33"></textarea>
         <textarea id="textbox" rows="5" cols="33"></textarea>
     </div>
-    
+
+
 
 <script src="app.js"></script>
 <noscript>You need to enable JavaScript to view the full site.</noscript>
 </body>
 </html>
 
+
+
 <!--
+    Image sources:
     agriculture: https://www.google.com/url?sa=i&url=https%3A%2F%2Fpixnio.com%2Fmedia%2Fsoybean-field-agriculture-grass-farm&psig=AOvVaw2uxlENL-9ZBdDAq2IeIxEW&ust=1627943740708000&source=images&cd=vfe&ved=0CAsQjhxqFwoTCID9jJfxkPICFQAAAAAdAAAAABAD
     
 -->
