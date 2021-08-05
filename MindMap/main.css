@@ -103,7 +103,7 @@ body {
     padding: 10px;
     border: 1px solid black;
 }
-#cause_effect_chain {
+#cause_effect_chain, #hazard_chain {
     float: left;
     width: 800px;
     height: 140px;
@@ -119,15 +119,30 @@ body {
     padding: 10px;
     border: 1px solid black;
 }
-#arrow {
+#hazard_box {
+  float: left;
+  width: 100px;
+  height: 70px;
+  padding: 10px;
+  margin-right: 30px;
+  border: 1px solid black;
+}
+#right_arrow {
     text-align: center;
     float: left;
     width: 30px;
     height: 70px;
     margin-top: 20px;
-    
 }
-#textboxes {
+#down_arrow {
+  text-align: center;
+  float: left;
+  width: 150px;
+  height: 20px;
+  margin-left: 3px;
+  margin-bottom: 10px;
+}
+#cause_effect_textboxes {
     text-align: center;
     float: left;
     width: 800px;
@@ -135,15 +150,52 @@ body {
     padding-left: 50px;
     padding-left: 50px;
 }
-#textbox {
+#hazard_textboxes {
+  float: left;
+  width: 800px;
+  height: 140px;
+  margin-left: 10px;
+  margin-right: 10px;
+  padding: 10px;
+}
+#cause_effect_textbox {
     text-align: left;
     float: left;
     width: 155px;
     height: 70px;
+}
+#hazard_textbox {
+  float: left;
+  width: 100px;
+  height: 70px;
+  padding: 10px;
+  margin-right: 30px;
+}
+#cause_earthquakes, #cause_storms, #cause_landslides, #cause_space, #cause_volcanoes,
+#cause_waves, #effect_earthquakes, #effect_storms, #effect_landslides, #effect_space, 
+#effect_volcanoes, #effect_waves {
+  float: left;
+  margin-left: 30px;
+  margin-right: 30px;
+  margin-top: 30px;
+}
+#map_hazards {
+  float: left;
+  width: 148px;
+  height: 400px;
+  margin-left: 30px;
+  margin-right: 30px;
+  border: 1px solid black;
 }
 #short_answer {
     text-align: left;
     float: left;
     width: 500px;
     height: 200px;
+}
+#header {
+  text-align: left;
+  float: left;
+  width: 800px;
+  height: 20px;
 }

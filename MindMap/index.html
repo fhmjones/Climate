@@ -4,12 +4,13 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mind Map Assignment</title>
+    <title>Climate Assignment</title>
     <link rel="stylesheet" href="main.css">
 </head>
 
 <body>
 
+<!--For Debugging-->
 <div id="log"></div>
 
 <!--Pagination-->
@@ -45,7 +46,7 @@
   <!--PAGES-->
     <!--Instructions-->
     <div>
-        <h1>Drag and Drop Assignment</h1>
+        <h1>Climate Assignment</h1>
     </div>
 
     <div class="page1">
@@ -58,7 +59,19 @@
     </div>
 
     <div class="page3">
-        <p>Consider how increases in these factors could affect natural hazards.</p>
+        <p>Consider how increases in these factors could affect natural hazards. 
+          Put the hazards in the appropriate box below the cause-effect chain. 
+          Use the textboxes to explain how this happens.
+        </p>
+    </div>
+
+    <div class="page4">
+      <p>So far, you have considered impacts of increasing factors on frequency or severity of natural hazards. 
+        Now, consider how increases in severity or frequency of hazard types may affect increase or severity of other hazards. 
+        Add arrows indicating which natural hazard can contribute to causing other hazards. 
+        Select a hazard from the left box, then select one from the right box to draw an arrow between them. 
+        Explain briefly at least one way that this occurs.
+      </p>
     </div>
 
     <div class="page5">
@@ -96,29 +109,93 @@
         <img src="./images/waves.png" draggable="true" ondragstart="drag(event)" id="waves" width="88" height="31">
     </div>
 
-    
+    <div class="page6">
+      <h3 id="header">Part 1</p>
+    </div>
     <!--Chain Layout-->
+    <div class="page1 page2 page3" id="header">
+      <p><b>Cause-Effect Chain:</b></p>
+    </div>
     <div class="page1 page2 page3 page6" id="cause_effect_chain">
-        <p><b>Cause-Effect Chain:</b></p>
         <div id="cause_effect" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
-        <div id="arrow"><p>&#129034;</p></div>
+        <div id="right_arrow"><p>&#129034;</p></div>
         <div id="cause_effect" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
-        <div id="arrow"><p>&#129034;</p></div>
+        <div id="right_arrow"><p>&#129034;</p></div>
         <div id="cause_effect" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
-        <div id="arrow"><p>&#129034;</p></div>
+        <div id="right_arrow"><p>&#129034;</p></div>
         <div id="cause_effect" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
-        <div id="arrow"><p>&#129034;</p></div>
+        <div id="right_arrow"><p>&#129034;</p></div>
         <div id="cause_effect" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
     </div>
     
-    <!--Textboxes-->
-    <div class="page2 page6" id="textboxes">
-        <textarea id="textbox" rows="5" cols="33"></textarea>
-        <textarea id="textbox" rows="5" cols="33"></textarea>
-        <textarea id="textbox" rows="5" cols="33"></textarea>
-        <textarea id="textbox" rows="5" cols="33"></textarea>
+    <div class="page6">
+      <h3 id="header">Part 2</p>
+    </div>
+    <!--Cause-Effect Textboxes-->
+    <div class="page2 page6" id="cause_effect_textboxes">
+        <textarea id="cause_effect_textbox" rows="5" cols="33"></textarea>
+        <textarea id="cause_effect_textbox" rows="5" cols="33"></textarea>
+        <textarea id="cause_effect_textbox" rows="5" cols="33"></textarea>
+        <textarea id="cause_effect_textbox" rows="5" cols="33"></textarea>
     </div>
 
+    <!--Down Arrows-->
+    <div class="page3" id="down_arrows">
+      <div id="down_arrow"><p>&#129035;</p></div>
+      <div id="down_arrow"><p>&#129035;</p></div>
+      <div id="down_arrow"><p>&#129035;</p></div>
+      <div id="down_arrow"><p>&#129035;</p></div>
+      <div id="down_arrow"><p>&#129035;</p></div>
+    </div>
+    
+    <div class="page6">
+      <h3 id="header">Part 3</p>
+    </div>
+    
+    <!--Hazard Chain Layout-->
+    <div class="page3 page6" id="hazard_chain">
+      <div id="hazard_box" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+      <div id="hazard_box" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+      <div id="hazard_box" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+      <div id="hazard_box" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+      <div id="hazard_box" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+    </div>
+
+    <!--Hazard Textboxes-->
+    <div class="page3 page6" id="hazard_textboxes">
+      <textarea id="hazard_textbox" rows="5" cols="33"></textarea>
+      <textarea id="hazard_textbox" rows="5" cols="33"></textarea>
+      <textarea id="hazard_textbox" rows="5" cols="33"></textarea>
+      <textarea id="hazard_textbox" rows="5" cols="33"></textarea>
+      <textarea id="hazard_textbox" rows="5" cols="33"></textarea>
+    </div>
+    <div class="page6">
+      <h3 id="header">Part 4</p>
+    </div>
+
+    <!--Arrow Hazards-->
+
+    <div class="page4" id="map_hazards">
+      <img src="./images/earthquakes.png" id="cause_earthquakes" onclick="select_cause_hazard('cause_earthquakes')" width="88" height="31">
+      <img src="./images/storms.png" id="cause_storms" onclick="select_cause_hazard('cause_storms')" width="88" height="31">
+      <img src="./images/landslides.png" id="cause_landslides" onclick="select_cause_hazard('cause_landslides')" width="88" height="31">
+      <img src="./images/space.png" id="cause_space" onclick="select_cause_hazard('cause_space')" width="88" height="31">
+      <img src="./images/volcanoes.png" id="cause_volcanoes" onclick="select_cause_hazard('cause_volcanoes')" width="88" height="31">
+      <img src="./images/waves.png" id="cause_waves" onclick="select_cause_hazard('cause_waves')" width="88" height="31">
+    </div>
+
+    <div class="page4" id="map_hazards">
+      <img src="./images/earthquakes.png" id="effect_earthquakes" onclick="select_effect_hazard('effect_earthquakes')" width="88" height="31">
+      <img src="./images/storms.png" id="effect_storms" onclick="select_effect_hazard('effect_storms')" width="88" height="31">
+      <img src="./images/landslides.png" id="effect_landslides" onclick="select_effect_hazard('effect_landslides')" width="88" height="31">
+      <img src="./images/space.png" id="effect_space" onclick="select_effect_hazard('effect_space')" width="88" height="31">
+      <img src="./images/volcanoes.png" id="effect_volcanoes" onclick="select_effect_hazard('effect_volcanoes')" width="88" height="31">
+      <img src="./images/waves.png" id="effect_waves" onclick="select_effect_hazard('effect_waves')" width="88" height="31">
+    </div>
+
+    <div class="page6">
+      <h3 id="header">Part 5</p>
+    </div>
     <!--Short Answer-->
     <div class="page5 page6">
         <textarea id="short_answer" rows="20" cols="80"></textarea>
