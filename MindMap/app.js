@@ -47,7 +47,6 @@ function select_cause_hazard(hazard_type) {
 }
 
 function select_effect_hazard(hazard_type) {
-  //drawConnector();
   if (hazard_type == selected_effect_hazard) {
     document.getElementById(hazard_type).style.border = '';
   }
@@ -62,6 +61,7 @@ function select_effect_hazard(hazard_type) {
       }
     }
   }
+  drawConnector(selected_cause_hazard, selected_effect_hazard);
 }
 
 // Draw arrows part 4
@@ -81,9 +81,7 @@ function get_y_coordinates(element) {
   return y;
 };
 
-function drawConnector() {
-  var left = "cause_storms";
-  var right = "effect_waves";
+function drawConnector(left, right) {
   var arrow = document.getElementById("arrow");
 	
   var y_left = get_y_coordinates(left);
@@ -92,7 +90,7 @@ function drawConnector() {
   arrow.setAttribute("y2", y_right);
 }
 
-drawConnector();
+drawConnector("cause_storms", "effect_waves");
 
 
 //Pagination
