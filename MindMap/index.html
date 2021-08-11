@@ -184,6 +184,19 @@
       <img src="./images/waves.png" id="cause_waves" onclick="select_cause_hazard('cause_waves')" width="88" height="31">
     </div>
 
+    <div class="page4" id="arrow_container">
+      <svg width="160" height="400">
+        <defs>
+            <marker id="markerArrow" markerWidth="13" markerHeight="13" refX="2" refY="6"
+                  orient="auto">
+                <path d="M2,2 L2,11 L10,6 L2,2" style="fill: #000000;" />
+            </marker>
+        </defs>
+        
+        <line x1="2" y1="0" x2="146" y2="100" class="arrow" id="arrow"/>
+      </svg>
+    </div>
+
     <div class="page4" id="map_hazards">
       <img src="./images/earthquakes.png" id="effect_earthquakes" onclick="select_effect_hazard('effect_earthquakes')" width="88" height="31">
       <img src="./images/storms.png" id="effect_storms" onclick="select_effect_hazard('effect_storms')" width="88" height="31">
@@ -192,6 +205,39 @@
       <img src="./images/volcanoes.png" id="effect_volcanoes" onclick="select_effect_hazard('effect_volcanoes')" width="88" height="31">
       <img src="./images/waves.png" id="effect_waves" onclick="select_effect_hazard('effect_waves')" width="88" height="31">
     </div>
+
+    <!--Arrows for part 4-->
+    <!--From: https://stackoverflow.com/questions/39553105/drawing-curved-svg-arrow-lines-from-div-to-div-->
+    <!--From: https://stackoverflow.com/questions/11808860/how-to-place-arrow-head-triangles-on-svg-lines-->
+
+
+
+    <div class="page4" id="test">
+      <!--
+      <link rel="stylesheet" href="domarrow.css">
+      <script src="domarrow.js"></script>
+      <connection from="#cause_space" to="#effect_space" color="red" tail></connection>
+      -->
+      
+      <!--
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="-50 -100 200 200">
+        <defs>
+          <marker id='head' orient='auto' markerWidth='2' markerHeight='4'
+                  refX='0.1' refY='2'>
+            <path d='M0,0 V4 L2,2 Z' fill='red' />
+          </marker>
+        </defs>    
+        <path
+          id="arrowRight"
+          marker-end='url(#head)'
+          stroke-width='5' fill='none' stroke='black'  
+          d='M0 0 L10 10'
+          />
+      </svg>
+      -->
+    </div>
+
+
 
     <div class="page6">
       <h3 id="header">Part 5</p>

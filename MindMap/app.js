@@ -1,5 +1,11 @@
 'use strict'
 
+//variables for part 4
+var selected_cause_hazard = '';
+var selected_effect_hazard = '';
+var cause_hazards = ['cause_earthquakes', 'cause_storms', 'cause_landslides', 'cause_space', 'cause_volcanoes', 'cause_waves'];
+var effect_hazards = ['effect_earthquakes', 'effect_storms', 'effect_landslides', 'effect_space', 'effect_volcanoes', 'effect_waves'];
+
 //Drag and Drop
 
 function allowDrop(ev) {
@@ -20,33 +26,73 @@ function allowDrop(ev) {
 //document.getElementById('log').innerHTML += hazard_type;
 
 
-//global var cause_hazard = '';
+
 
 //Page 4 click
 function select_cause_hazard(hazard_type) {
-  
-  var cause_hazards = ['cause_earthquakes', 'cause_storms', 'cause_landslides', 'cause_space', 'cause_volcanoes', 'cause_waves'];
-  for (let i = 0; i < cause_hazards.length; i++) {
-    if (hazard_type == cause_hazards[i]){
-      document.getElementById(cause_hazards[i]).style.border = '3px solid skyblue';
-    }
-    else {
-      document.getElementById(cause_hazards[i]).style.border = '';
+  if (hazard_type == selected_cause_hazard) {
+    document.getElementById(hazard_type).style.border = '';
+  }
+  else {
+    selected_cause_hazard = hazard_type;
+    for (let i = 0; i < cause_hazards.length; i++) {
+      if (hazard_type == cause_hazards[i]){
+        document.getElementById(cause_hazards[i]).style.border = '3px solid skyblue';
+      }
+      else {
+        document.getElementById(cause_hazards[i]).style.border = '';
+      }
     }
   }
 }
 
 function select_effect_hazard(hazard_type) {
-  var effect_hazards = ['effect_earthquakes', 'effect_storms', 'effect_landslides', 'effect_space', 'effect_volcanoes', 'effect_waves'];
-  for (let i = 0; i < effect_hazards.length; i++) {
-    if (hazard_type == effect_hazards[i]){
-      document.getElementById(effect_hazards[i]).style.border = '3px solid skyblue';
-    }
-    else {
-      document.getElementById(effect_hazards[i]).style.border = '';
+  //drawConnector();
+  if (hazard_type == selected_effect_hazard) {
+    document.getElementById(hazard_type).style.border = '';
+  }
+  else {
+    selected_effect_hazard = hazard_type;
+    for (let i = 0; i < effect_hazards.length; i++) {
+      if (hazard_type == effect_hazards[i]){
+        document.getElementById(effect_hazards[i]).style.border = '3px solid skyblue';
+      }
+      else {
+        document.getElementById(effect_hazards[i]).style.border = '';
+      }
     }
   }
 }
+
+// Draw arrows part 4
+
+function get_y_coordinates(element) {
+  var container_height = 400;
+  var item_height = container_height/13;
+
+  var index = cause_hazards.indexOf(element);
+
+  if (index == -1) {
+    index = effect_hazards.indexOf(element);
+  }
+
+  var y = 1.5*item_height + 2*index*item_height;
+
+  return y;
+};
+
+function drawConnector() {
+  var left = "cause_storms";
+  var right = "effect_waves";
+  var arrow = document.getElementById("arrow");
+	
+  var y_left = get_y_coordinates(left);
+  var y_right = get_y_coordinates(right);
+  arrow.setAttribute("y1", y_left);
+  arrow.setAttribute("y2", y_right);
+}
+
+drawConnector();
 
 
 //Pagination
