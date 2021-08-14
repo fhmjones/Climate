@@ -34,11 +34,11 @@ server = Flask(__name__)
 app = dash.Dash(
     server=server,
     url_base_pathname=environ.get('JUPYTERHUB_SERVICE_PREFIX', '/'),
-    external_stylesheets=external_stylesheets
+    external_stylesheets=external_stylesheets,
+    suppress_callback_exceptions=True #because of the tabs, not all callbacks are accessible so we suppress callback exceptions
 )
 
 app.layout = html.Div([
-
 
     html.Div([
         dcc.Markdown(
@@ -46,198 +46,210 @@ app.layout = html.Div([
         ),
     ], style={'width': '80%', 'display': 'inline-block', 'padding': '0 20', 'vertical-align': 'middle', 'margin-bottom': 30, 'margin-right': 50, 'margin-left': 20}),
 
+    #Tabs: https://dash.plotly.com/dash-core-components/tabs
     html.Div([
-        dcc.RadioItems(
-            id='graph_type',
-            options=[
-                {'label': 'Learn', 'value': 'learn'},
-                {'label': 'Explore', 'value': 'explore'}
-            ],
-            value='learn'
-        )
-    ], style={'width': '80%', 'display': 'inline-block', 'padding': '0 20', 'vertical-align': 'middle', 'margin-bottom': 30, 'margin-right': 50, 'margin-left': 20} ),
-
-    html.Div([
-        dcc.Graph(
-            id='graph',
-            figure={
-                'layout': {
-                    'yaxis': {
-                        'range': [-5, 5],
-                        'autorange': False
-                    }
-                }
-            },
-            config={
-                'doubleClick': 'reset',  # 'reset', 'autosize' or 'reset+autosize', False
-            },
-        ),
-    ], style={'width': '80%', 'display': 'inline-block', 'vertical-align': 'middle'}),
-
-    #styling the checklists/radiobuttons: https://community.plotly.com/t/dcc-radioitems-and-label-style/26358/2
-    html.Div([
-        dcc.Markdown('''
-            **Natural Factors**
-            ''',
-             style={'font-size': '14px'},),
-        dcc.Checklist(
-            id='natural_checklist',
-            options=[
-                {'label': 'Orbital Changes', 'value': 'OC'},
-                {'label': 'Solar', 'value': 'S'},
-                {'label': 'Volcanic', 'value': 'V'}
-            ],
-            value=[],
-            style={'display':'none'}
-        ),
-        dcc.RadioItems(
-            id='natural_radiobuttons',
-            options=[
-                {'label': 'Orbital Changes', 'value': 'OC'},
-                {'label': 'Solar', 'value': 'S'},
-                {'label': 'Volcanic', 'value': 'V'}
-            ],
-        ),
-
-        dcc.Markdown('''
-            **Human Factors**
-            '''),
-        dcc.Checklist(
-            id='human_checklist',
-            options=[
-                {'label': 'Land Use', 'value': 'LU'},
-                {'label': 'Ozone', 'value': 'O'},
-                {'label': 'Aerosols', 'value': 'A'},
-                {'label': 'Greenhouse Gases', 'value': 'GG'},
-            ],
-            value=[],
-            style={'display':'none'}
-        ),
-        dcc.RadioItems(
-            id='human_radiobuttons',
-            options=[
-                {'label': 'Land Use', 'value': 'LU'},
-                {'label': 'Ozone', 'value': 'O'},
-                {'label': 'Aerosols', 'value': 'A'},
-                {'label': 'Greenhouse Gases', 'value': 'GG'},
-            ],
-        ),
-
-        dcc.Markdown('''
-            **All Factors**
-            '''),
-        dcc.Checklist(
-            id='all_checklist',
-            options=[
-                {'label': 'Natural', 'value': 'N'},
-                {'label': 'Human', 'value': 'H'},
-                {'label': 'All Forcings', 'value': 'ALL'}
-            ],
-            value=[],
-            style={'display':'none'}
-        ),
-        dcc.RadioItems(
-            id='all_radiobuttons',
-            options=[
-                {'label': 'Natural', 'value': 'N'},
-                {'label': 'Human', 'value': 'H'},
-                {'label': 'All Forcings', 'value': 'ALL'}
-            ],
-        ),
-
-    ], style={'width': '20%', 'display': 'inline-block', 'vertical-align': 'middle'}),
-
-    html.Div([
-        dcc.Markdown(
-            children='''**Text**''',
-            id='description',
-            style={'font-size': '14px'},),
-    ])
-
+        dcc.Tabs(id='tabs', value='learn', children=[
+            dcc.Tab(label='Learn', value='learn'),
+            dcc.Tab(label='Explore', value='explore'),
+        ]),
+        html.Div(id='tabs-content')
+    ], style={'width': '80%', 'display': 'inline-block', 'padding': '0 20', 'vertical-align': 'middle', 'margin-bottom': 30, 'margin-right': 50, 'margin-left': 20}),
 
 ], style={'width': '1000px'})
+
+@app.callback(Output('tabs-content', 'children'),
+              Input('tabs', 'value'))
+def render_content(tab):
+    if tab == 'learn':
+        return html.Div([
+            html.Div([
+                dcc.Graph(
+                    id='learn_graph',
+                    figure={
+                        'layout': {
+                            'yaxis': {
+                                'range': [-5, 5],
+                                'autorange': False
+                            }
+                        }
+                    },
+                    config={
+                        'doubleClick': 'reset',  # 'reset', 'autosize' or 'reset+autosize', False
+                    },
+                ),
+            ], style={'width': '80%', 'display': 'inline-block', 'vertical-align': 'middle'}),
+
+
+            html.Div([
+                dcc.Markdown('''
+                        **Natural Factors**
+                        '''),
+                dcc.RadioItems(
+                    id='natural_radiobuttons',
+                    options=[
+                        {'label': 'Orbital Changes', 'value': 'OC'},
+                        {'label': 'Solar', 'value': 'S'},
+                        {'label': 'Volcanic', 'value': 'V'}
+                    ],
+                ),
+
+                dcc.Markdown('''
+                        **Human Factors**
+                        '''),
+                dcc.RadioItems(
+                    id='human_radiobuttons',
+                    options=[
+                        {'label': 'Land Use', 'value': 'LU'},
+                        {'label': 'Ozone', 'value': 'O'},
+                        {'label': 'Aerosols', 'value': 'A'},
+                        {'label': 'Greenhouse Gases', 'value': 'GG'},
+                    ],
+                ),
+
+                dcc.Markdown('''
+                        **All Factors**
+                        '''),
+                dcc.RadioItems(
+                    id='all_radiobuttons',
+                    options=[
+                        {'label': 'Natural', 'value': 'N'},
+                        {'label': 'Human', 'value': 'H'},
+                        {'label': 'All Forcings', 'value': 'ALL'}
+                    ],
+                ),
+
+            ], style={'width': '20%', 'display': 'inline-block', 'vertical-align': 'middle'}),
+
+
+            html.Div([
+                dcc.Markdown(
+                    children='''**Text**''',
+                    id='description',
+                    style={'font-size': '14px'}, ),
+            ])
+        ])
+    elif tab == 'explore':
+        return html.Div([
+            html.Div([
+                dcc.Graph(
+                    id='explore_graph',
+                    figure={
+                        'layout': {
+                            'yaxis': {
+                                'range': [-5, 5],
+                                'autorange': False
+                            }
+                        }
+                    },
+                    config={
+                        'doubleClick': 'reset',  # 'reset', 'autosize' or 'reset+autosize', False
+                    },
+                ),
+            ], style={'width': '80%', 'display': 'inline-block', 'vertical-align': 'middle'}),
+
+            html.Div([
+                dcc.Markdown('''
+                        **Natural Factors**
+                        '''),
+                dcc.Checklist(
+                    id='natural_checklist',
+                    options=[
+                        {'label': 'Orbital Changes', 'value': 'OC'},
+                        {'label': 'Solar', 'value': 'S'},
+                        {'label': 'Volcanic', 'value': 'V'}
+                    ],
+                    value=[],
+                ),
+                dcc.Markdown('''
+                        **Human Factors**
+                        '''),
+                dcc.Checklist(
+                    id='human_checklist',
+                    options=[
+                        {'label': 'Land Use', 'value': 'LU'},
+                        {'label': 'Ozone', 'value': 'O'},
+                        {'label': 'Aerosols', 'value': 'A'},
+                        {'label': 'Greenhouse Gases', 'value': 'GG'},
+                    ],
+                    value=[],
+                ),
+
+                dcc.Markdown('''
+                        **All Factors**
+                        '''),
+                dcc.Checklist(
+                    id='all_checklist',
+                    options=[
+                        {'label': 'Natural', 'value': 'N'},
+                        {'label': 'Human', 'value': 'H'},
+                        {'label': 'All Forcings', 'value': 'ALL'}
+                    ],
+                    value=[],
+                ),
+
+            ], style={'width': '20%', 'display': 'inline-block', 'vertical-align': 'middle'}),
+
+        ])
+
 
 
 
 @app.callback(
     Output(component_id='description', component_property='children'),
-    Input(component_id='graph_type', component_property='value'),
     Input(component_id='natural_radiobuttons', component_property='value'),
     Input(component_id='human_radiobuttons', component_property='value'),
     Input(component_id='all_radiobuttons', component_property='value'),
 )
-def update_description(graph_type, natural, human, all):
-    if graph_type == 'learn':
-        output = ''''''
-        if natural == 'OC':
-            output += '''
-            **The Earth's Orbit**:  
-            The Earth wobbles on its axis, and its tilt and orbit change over many thousands of years, pushing the climate into and out of ice ages.  
-            '''
-        elif natural == 'S':
-            output += '''
-            **The Sun**:  
-            The sun's temperature varies over decades and centuries.  
-            '''
-        elif natural == 'V':
-            output += '''
-            **Volcanoes**  
-            '''
+def update_description(natural, human, all):
+    output = ''''''
+    if natural == 'OC':
+        output += '''
+        **The Earth's Orbit**:  
+        The Earth wobbles on its axis, and its tilt and orbit change over many thousands of years, pushing the climate into and out of ice ages.  
+        '''
+    elif natural == 'S':
+        output += '''
+        **The Sun**:  
+        The sun's temperature varies over decades and centuries.  
+        '''
+    elif natural == 'V':
+        output += '''
+        **Volcanoes**  
+        '''
 
-        if human == 'LU':
-            output += '''
-            **Deforestation**:  
-            Humans have cut, plowed, and paved more than hald the Earth's land surface. Dark forests are yielding to lighter patches, which reflect more sunlight.  
-            '''
-        elif human == 'O':
-            output += '''
-            **Ozone Pollution**:  
-            Natural ozone high in the atmosphere blocks harmful sunlight. Closer to the Earth, ozone is created by pollution and traps heat.  
-            '''
-        elif human == 'A':
-            output += '''
-            **Aerosol Polution**  
-            '''
-        elif human == 'GG':
-            output += '''
-            **Greenhouse Gases**  
-            '''
+    if human == 'LU':
+        output += '''
+        **Deforestation**:  
+        Humans have cut, plowed, and paved more than hald the Earth's land surface. Dark forests are yielding to lighter patches, which reflect more sunlight.  
+        '''
+    elif human == 'O':
+        output += '''
+        **Ozone Pollution**:  
+        Natural ozone high in the atmosphere blocks harmful sunlight. Closer to the Earth, ozone is created by pollution and traps heat.  
+        '''
+    elif human == 'A':
+        output += '''
+        **Aerosol Polution**  
+        '''
+    elif human == 'GG':
+        output += '''
+        **Greenhouse Gases**  
+        '''
 
-        if all == 'N':
-            output += '''
-            **Natural**  
-            '''
-        elif all == 'H':
-            output += '''
-            **Human**  
-            '''
-        elif all == 'ALL':
-            output += '''
-            **All**  
-            '''
+    if all == 'N':
+        output += '''
+        **Natural**  
+        '''
+    elif all == 'H':
+        output += '''
+        **Human**  
+        '''
+    elif all == 'ALL':
+        output += '''
+        **All**  
+        '''
 
-        return [output]
-
-for i in ['natural_checklist', 'human_checklist', 'all_checklist']:
-    @app.callback(
-        Output(component_id=i, component_property='style'),
-        Input('graph_type', 'value'),
-    )
-    def update_graph_type(graph_type):
-        if graph_type == 'learn':
-            return {'display':'none'}
-        elif graph_type == 'explore':
-            return {'display':'inline'}
-for i in ['natural_radiobuttons', 'human_radiobuttons', 'all_radiobuttons']:
-    @app.callback(
-        Output(component_id=i, component_property='style'),
-        Input('graph_type', 'value'),
-    )
-    def update_graph_type(graph_type):
-        if graph_type == 'learn':
-            return {'display':'inline'}
-        elif graph_type == 'explore':
-            return {'display':'none'}
+    return [output]
 
 def update_factors(fig, factors):
     #colors: https://www.w3schools.com/cssref/css_colors.asp
@@ -275,22 +287,15 @@ def update_factors(fig, factors):
 
 
 @app.callback(
-    Output(component_id='graph', component_property='figure'),
-    Input(component_id='graph_type', component_property='value'),
-    Input(component_id='natural_checklist', component_property='value'),
-    Input(component_id='human_checklist', component_property='value'),
-    Input(component_id='all_checklist', component_property='value'),
+    Output(component_id='learn_graph', component_property='figure'),
     Input(component_id='natural_radiobuttons', component_property='value'),
     Input(component_id='human_radiobuttons', component_property='value'),
     Input(component_id='all_radiobuttons', component_property='value'),
 )
-def update_plot(graph_type, natural_checklist, human_checklist, all_checklist, natural_radiobuttons, human_radiobuttons, all_radiobuttons):
-    if graph_type == 'learn':
-        factors = [natural_radiobuttons] + [human_radiobuttons] + [all_radiobuttons]
-    elif graph_type == 'explore':
-        factors = natural_checklist + human_checklist + all_checklist
+def update_plot(natural_radiobuttons, human_radiobuttons, all_radiobuttons):
+    factors = [natural_radiobuttons] + [human_radiobuttons] + [all_radiobuttons]
 
-    fig = px.line(land_ocean_data, x='Year', y='Annual_Mean', title="Graph", color_discrete_sequence=['black'])
+    fig = px.line(land_ocean_data, x='Year', y='Annual_Mean', color_discrete_sequence=['black'])
     fig.update_layout(plot_bgcolor='rgb(255, 255, 255)', yaxis_zeroline=True, yaxis_zerolinecolor='gainsboro', yaxis_showline=True, yaxis_linecolor='gainsboro')
     fig = update_factors(fig, factors)
     fig.update_yaxes(title='Temperature (C)', range=[-1.2, 1.2])
@@ -303,7 +308,29 @@ def update_plot(graph_type, natural_checklist, human_checklist, all_checklist, n
 
     return fig
 
+@app.callback(
+    Output(component_id='explore_graph', component_property='figure'),
+    Input(component_id='natural_checklist', component_property='value'),
+    Input(component_id='human_checklist', component_property='value'),
+    Input(component_id='all_checklist', component_property='value'),
+)
+def update_plot(natural_checklist, human_checklist, all_checklist):
+    factors = natural_checklist + human_checklist + all_checklist
 
+    fig = px.line(land_ocean_data, x='Year', y='Annual_Mean', color_discrete_sequence=['black'])
+    fig.update_layout(plot_bgcolor='rgb(255, 255, 255)', yaxis_zeroline=True, yaxis_zerolinecolor='gainsboro', yaxis_showline=True, yaxis_linecolor='gainsboro')
+    fig = update_factors(fig, factors)
+    fig.update_yaxes(title='Temperature (C)', range=[-1.2, 1.2])
+
+    #annotation
+    fig.add_annotation(x=2005, y=0.938064516129032,
+                       text="<b>observed<br>temperature</b>",
+                       showarrow=True,
+                       arrowhead=1)
+
+    return fig
 
 if __name__ == '__main__':
     app.run_server(debug=True, host='0.0.0.0', port=8050)
+
+
