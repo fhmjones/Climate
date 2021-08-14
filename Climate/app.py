@@ -59,14 +59,15 @@ app.layout = html.Div([
         dcc.Graph(
             id='graph',
             config={
-                'staticPlot': False,  # True, False
-                'scrollZoom': True,  # True, False
                 'doubleClick': 'reset',  # 'reset', 'autosize' or 'reset+autosize', False
-                'showTips': True,  # True, False
-                'displayModeBar': False,  # True, False, 'hover'
-                'watermark': True,
-                'modeBarButtonsToRemove': ['pan2d', 'select2d', 'lasso2d'],
             },
+            figure={
+                'layout': {
+                    'yaxis': {
+                        'range': [-5, 5]
+                    }
+                }
+            }
         ),
     ], style={'width': '80%', 'display': 'inline-block', 'vertical-align': 'middle'}),
 
@@ -285,6 +286,7 @@ def update_plot(graph_type, natural_checklist, human_checklist, all_checklist, n
         factors = [natural_radiobuttons] + [human_radiobuttons] + [all_radiobuttons]
     elif graph_type == 'explore':
         factors = natural_checklist + human_checklist + all_checklist
+
     fig = px.line(land_ocean_data, x='Year', y='Annual_Mean', title="Graph", color_discrete_sequence=['black'])
     fig.update_layout(plot_bgcolor='rgb(255, 255, 255)', yaxis_zeroline=True, yaxis_zerolinecolor='gainsboro', yaxis_showline=True, yaxis_linecolor='gainsboro')
     fig = update_factors(fig, factors)
