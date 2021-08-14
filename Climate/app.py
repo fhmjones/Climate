@@ -19,6 +19,10 @@ from dash.dependencies import Input, Output
 import plotly.express as px
 import pandas as pd
 
+#load markdown
+introduction = open('introduction.md', 'r')
+introduction_markdown = introduction.read()
+
 land_ocean_data = pd.read_csv("./land_ocean_filtered.csv")
 climate_forcings_data = pd.read_csv("./climate_forcings_filtered.csv")
 #averages_data = pd.read_csv("./averages.csv")
@@ -37,11 +41,9 @@ app.layout = html.Div([
 
 
     html.Div([
-        dcc.Markdown('''
-            ### Climate
-
-            ----------
-            '''),
+        dcc.Markdown(
+            children=introduction_markdown
+        ),
     ], style={'width': '80%', 'display': 'inline-block', 'padding': '0 20', 'vertical-align': 'middle', 'margin-bottom': 30, 'margin-right': 50, 'margin-left': 20}),
 
     html.Div([
@@ -58,16 +60,17 @@ app.layout = html.Div([
     html.Div([
         dcc.Graph(
             id='graph',
-            config={
-                'doubleClick': 'reset',  # 'reset', 'autosize' or 'reset+autosize', False
-            },
             figure={
                 'layout': {
                     'yaxis': {
-                        'range': [-5, 5]
+                        'range': [-5, 5],
+                        'autorange': False
                     }
                 }
-            }
+            },
+            config={
+                'doubleClick': 'reset',  # 'reset', 'autosize' or 'reset+autosize', False
+            },
         ),
     ], style={'width': '80%', 'display': 'inline-block', 'vertical-align': 'middle'}),
 
@@ -291,6 +294,12 @@ def update_plot(graph_type, natural_checklist, human_checklist, all_checklist, n
     fig.update_layout(plot_bgcolor='rgb(255, 255, 255)', yaxis_zeroline=True, yaxis_zerolinecolor='gainsboro', yaxis_showline=True, yaxis_linecolor='gainsboro')
     fig = update_factors(fig, factors)
     fig.update_yaxes(title='Temperature (C)', range=[-1.2, 1.2])
+
+    #annotation
+    fig.add_annotation(x=2005, y=0.938064516129032,
+                       text="<b>observed<br>temperature</b>",
+                       showarrow=True,
+                       arrowhead=1)
 
     return fig
 
