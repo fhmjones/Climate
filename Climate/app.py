@@ -17,6 +17,7 @@ import dash_html_components as html
 from dash.dependencies import Input, Output
 
 import plotly.express as px
+import plotly.graph_objects as go
 import pandas as pd
 import json
 
@@ -218,37 +219,27 @@ def update_description(natural, human, all):
 
 def update_factors(fig, factors):
     #colors: https://www.w3schools.com/cssref/css_colors.asp
-    if 'OC' in factors:
-        figOC = px.line(climate_forcings_data, x='Year', y='Orbital changes', error_y='Error', color_discrete_sequence=['deepskyblue'])
-        fig.add_trace(figOC.data[0])
-    if 'S' in factors:
-        figS = px.line(climate_forcings_data, x='Year', y='Solar', color_discrete_sequence=['orange'])
-        fig.add_trace(figS.data[0])
-    if 'V' in factors:
-        figV = px.line(climate_forcings_data, x='Year', y='Volcanic', color_discrete_sequence=['red'])
-        fig.add_trace(figV.data[0])
-    if 'LU' in factors:
-        figLU = px.line(climate_forcings_data, x='Year', y='Land use', color_discrete_sequence=['sienna'])
-        fig.add_trace(figLU.data[0])
-    if 'O' in factors:
-        figO = px.line(climate_forcings_data, x='Year', y='Ozone', color_discrete_sequence=['cadetblue'])
-        fig.add_trace(figO.data[0])
-    if 'A' in factors:
-        figA = px.line(climate_forcings_data, x='Year', y='Anthropogenic tropospheric aerosol', color_discrete_sequence=['mediumslateblue'])
-        fig.add_trace(figA.data[0])
-    if 'GG' in factors:
-        figGG = px.line(climate_forcings_data, x='Year', y='Greenhouse gases', color_discrete_sequence=['seagreen'])
-        fig.add_trace(figGG.data[0])
-    if 'N' in factors:
-        figN = px.line(climate_forcings_data, x='Year', y='Natural', color_discrete_sequence=['GreenYellow'])
-        fig.add_trace(figN.data[0])
-    if 'H' in factors:
-        figH = px.line(climate_forcings_data, x='Year', y='Human', color_discrete_sequence=['DarkGrey'])
-        fig.add_trace(figH.data[0])
-    if 'ALL' in factors:
-        figALL = px.line(climate_forcings_data, x='Year', y='All forcings', color_discrete_sequence=['purple'])
-        fig.add_trace(figALL.data[0])
-    fig.update_traces(error_x_width=0)
+    #error bars: https://plotly.com/python/continuous-error-bars/
+    colour_name = ['DeepSkyBlue', 'Orange', 'Red', 'Sienna', 'CadetBlue', 'MediumSlateBlue', 'SeaGreen', 'GreenYellow', 'DarkGrey', 'Purple']
+    colour_rgb = ['rgba(0, 191, 255, 0.2)', 'rgba(255, 165, 0, 0.2)', 'rgba(255, 0, 0, 0.2)', 'rgba(136, 45, 23, 0.2)', 'rgba(95, 158, 160, 0.2)',
+                  'rgba(123, 104, 238, 0.2)', 'rgba(46, 139, 87, 0.2)', 'rgba(173, 255, 47, 0.2)', 'rgba(169, 169, 169, 0.2)', 'rgba(128, 0, 128, 0.2)']
+    name = ['OC', 'S', 'V', 'LU', 'O', 'A', 'GG', 'N', 'H', 'ALL']
+    df_name = ['Orbital changes', 'Solar', 'Volcanic', 'Land use', 'Ozone', 'Anthropogenic tropospheric aerosol', 'Greenhouse gases',
+               'Natural', 'Human', 'All forcings']
+    for i in range(10):
+        if name[i] in factors:
+            new_fig = px.line(climate_forcings_data, x='Year', y=df_name[i], color_discrete_sequence=[colour_name[i]])
+            new_fig_error = go.Figure([
+                go.Scatter(name='Upper Bound', x=climate_forcings_data['Year'],
+                           y=climate_forcings_data[df_name[i]] + climate_forcings_data['Error'],
+                           mode='lines', marker=dict(color="#444"), line=dict(width=0), showlegend=False),
+                go.Scatter(name='Lower Bound', x=climate_forcings_data['Year'],
+                           y=climate_forcings_data[df_name[i]] - climate_forcings_data['Error'],
+                           marker=dict(color="#444"), line=dict(width=0), mode='lines', fillcolor=colour_rgb[i],
+                           fill='tonexty', showlegend=False)
+            ])
+            fig.add_traces(new_fig_error.data)
+            fig.add_trace(new_fig.data[0])
     return fig
 
 
