@@ -219,7 +219,7 @@ def update_description(natural, human, all):
 def update_factors(fig, factors):
     #colors: https://www.w3schools.com/cssref/css_colors.asp
     if 'OC' in factors:
-        figOC = px.line(climate_forcings_data, x='Year', y='Orbital changes', color_discrete_sequence=['deepskyblue'])
+        figOC = px.line(climate_forcings_data, x='Year', y='Orbital changes', error_y='Error', color_discrete_sequence=['deepskyblue'])
         fig.add_trace(figOC.data[0])
     if 'S' in factors:
         figS = px.line(climate_forcings_data, x='Year', y='Solar', color_discrete_sequence=['orange'])
@@ -248,6 +248,7 @@ def update_factors(fig, factors):
     if 'ALL' in factors:
         figALL = px.line(climate_forcings_data, x='Year', y='All forcings', color_discrete_sequence=['purple'])
         fig.add_trace(figALL.data[0])
+    fig.update_traces(error_x_width=0)
     return fig
 
 
@@ -260,9 +261,11 @@ def update_factors(fig, factors):
 def update_plot(natural_radiobuttons, human_radiobuttons, all_radiobuttons):
     factors = [natural_radiobuttons] + [human_radiobuttons] + [all_radiobuttons]
 
-    fig = px.line(land_ocean_data, x='Year', y='Annual_Mean', color_discrete_sequence=['black'])
+    fig = px.line()
     fig.update_layout(plot_bgcolor='rgb(255, 255, 255)', yaxis_zeroline=True, yaxis_zerolinecolor='gainsboro', yaxis_showline=True, yaxis_linecolor='gainsboro')
     fig = update_factors(fig, factors)
+    figTemp = px.line(land_ocean_data, x='Year', y='Annual_Mean', color_discrete_sequence=['black'])
+    fig.add_trace(figTemp.data[0])
     fig.update_yaxes(title='Temperature (C)', range=[-1.2, 1.2])
 
     #annotation
@@ -282,9 +285,12 @@ def update_plot(natural_radiobuttons, human_radiobuttons, all_radiobuttons):
 def update_plot(natural_checklist, human_checklist, all_checklist):
     factors = natural_checklist + human_checklist + all_checklist
 
-    fig = px.line(land_ocean_data, x='Year', y='Annual_Mean', color_discrete_sequence=['black'])
+    #fig = px.line(land_ocean_data, x='Year', y='Annual_Mean', color_discrete_sequence=['black'])
+    fig = px.line()
     fig.update_layout(plot_bgcolor='rgb(255, 255, 255)', yaxis_zeroline=True, yaxis_zerolinecolor='gainsboro', yaxis_showline=True, yaxis_linecolor='gainsboro')
     fig = update_factors(fig, factors)
+    figTemp = px.line(land_ocean_data, x='Year', y='Annual_Mean', color_discrete_sequence=['black'])
+    fig.add_trace(figTemp.data[0])
     fig.update_yaxes(title='Temperature (C)', range=[-1.2, 1.2])
 
     #annotation
