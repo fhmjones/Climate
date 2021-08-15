@@ -18,10 +18,14 @@ from dash.dependencies import Input, Output
 
 import plotly.express as px
 import pandas as pd
+import json
 
 #load markdown
 introduction = open('introduction.md', 'r')
 introduction_markdown = introduction.read()
+
+with open('descriptions.json') as f:
+    descriptions = json.load(f)
 
 land_ocean_data = pd.read_csv("./land_ocean_filtered.csv")
 climate_forcings_data = pd.read_csv("./climate_forcings_filtered.csv")
@@ -201,55 +205,16 @@ def render_content(tab):
     Input(component_id='all_radiobuttons', component_property='value'),
 )
 def update_description(natural, human, all):
-    output = ''''''
-    if natural == 'OC':
-        output += '''
-        **The Earth's Orbit**:  
-        The Earth wobbles on its axis, and its tilt and orbit change over many thousands of years, pushing the climate into and out of ice ages.  
-        '''
-    elif natural == 'S':
-        output += '''
-        **The Sun**:  
-        The sun's temperature varies over decades and centuries.  
-        '''
-    elif natural == 'V':
-        output += '''
-        **Volcanoes**  
-        '''
+    output = []
 
-    if human == 'LU':
-        output += '''
-        **Deforestation**:  
-        Humans have cut, plowed, and paved more than hald the Earth's land surface. Dark forests are yielding to lighter patches, which reflect more sunlight.  
-        '''
-    elif human == 'O':
-        output += '''
-        **Ozone Pollution**:  
-        Natural ozone high in the atmosphere blocks harmful sunlight. Closer to the Earth, ozone is created by pollution and traps heat.  
-        '''
-    elif human == 'A':
-        output += '''
-        **Aerosol Polution**  
-        '''
-    elif human == 'GG':
-        output += '''
-        **Greenhouse Gases**  
-        '''
+    if natural is not None:
+        output += descriptions[natural]
+    if human is not None:
+        output += descriptions[human]
+    if all is not None:
+        output += descriptions[all]
 
-    if all == 'N':
-        output += '''
-        **Natural**  
-        '''
-    elif all == 'H':
-        output += '''
-        **Human**  
-        '''
-    elif all == 'ALL':
-        output += '''
-        **All**  
-        '''
-
-    return [output]
+    return output
 
 def update_factors(fig, factors):
     #colors: https://www.w3schools.com/cssref/css_colors.asp
