@@ -240,10 +240,10 @@ def update_factors(fig, factors):
         figGG = px.line(climate_forcings_data, x='Year', y='Greenhouse gases', color_discrete_sequence=['seagreen'])
         fig.add_trace(figGG.data[0])
     if 'N' in factors:
-        figN = px.line(climate_forcings_data, x='Year', y='Natural', color_discrete_sequence=['purple'])
+        figN = px.line(climate_forcings_data, x='Year', y='Natural', color_discrete_sequence=['GreenYellow'])
         fig.add_trace(figN.data[0])
     if 'H' in factors:
-        figH = px.line(climate_forcings_data, x='Year', y='Human', color_discrete_sequence=['purple'])
+        figH = px.line(climate_forcings_data, x='Year', y='Human', color_discrete_sequence=['DarkGrey'])
         fig.add_trace(figH.data[0])
     if 'ALL' in factors:
         figALL = px.line(climate_forcings_data, x='Year', y='All forcings', color_discrete_sequence=['purple'])
