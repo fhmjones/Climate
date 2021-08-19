@@ -9,6 +9,8 @@
 }
 body {
     background: var(--bg);
+    max-width: 1000px;
+    padding: 30px;
 }
 
 /*Pagination*/
@@ -89,7 +91,7 @@ body {
   
   .pindicator .past .text,
   .pindicator .current .text,
-  .pindicator .next .text, {
+  .pindicator .next .text {
     color: black;
   }
 
