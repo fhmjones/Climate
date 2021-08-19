@@ -96,9 +96,14 @@ drawConnector("cause_storms", "effect_waves");
 // Draw and erase arrow buttons
 
 function draw_arrow() {
-  var current_arrow = document.getElementById("arrow_container").lastChild;
+  var current_arrow = document.getElementById("arrow");
   var new_arrow = current_arrow.cloneNode(true);
-  document.getElementById("drawn_arrows").appendChild(new_arrow)
+  new_arrow.id = "drawn_arrow";
+  //new_arrow.arrow_head.style.stroke = "#797979";
+  //new_arrow.arrow_line.style.fill = "#797979";
+  //new_arrow.arrow_line.y1 = 0;
+  //new_arrow.arrow_line.y2 = 100;
+  document.getElementById("drawn_arrows").appendChild(new_arrow);
 }
 
 function erase_arrow() {

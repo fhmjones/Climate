@@ -197,10 +197,23 @@ body {
   margin-right: 30px;
   border: 1px solid black;
 }
-#arrow_container, #drawn_arrows {
+#arrow_container {
   float: left;
   width: 148px;
   height: 400px;
+}
+#current_arrow {
+  float: left;
+  width: 148px;
+  height: 400px;
+  z-index: -2;
+}
+#drawn_arrows {
+  float: left;
+  width: 148px;
+  height: 400px;
+  position: absolute;
+  z-index: 2;
 }
 #short_answer {
     text-align: left;
