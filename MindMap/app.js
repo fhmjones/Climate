@@ -82,7 +82,7 @@ function get_y_coordinates(element) {
 };
 
 function drawConnector(left, right) {
-  var arrow = document.getElementById("arrow");
+  var arrow = document.getElementById("arrow_line");
 	
   var y_left = get_y_coordinates(left);
   var y_right = get_y_coordinates(right);
@@ -92,6 +92,32 @@ function drawConnector(left, right) {
 
 drawConnector("cause_storms", "effect_waves");
 
+
+// Draw and erase arrow buttons
+
+function draw_arrow() {
+  var current_arrow = document.getElementById("arrow_container").lastChild;
+  var new_arrow = current_arrow.cloneNode(true);
+  document.getElementById("drawn_arrows").appendChild(new_arrow)
+}
+
+function erase_arrow() {
+  
+}
+
+function highlight_arrow() {
+  var arrow_line = document.getElementById("arrow_line");
+  var arrow_head = document.getElementById("arrow_head");
+  if (arrow_line.style.stroke == "red") {
+    arrow_line.setAttribute("style", "stroke: black;");
+    arrow_head.setAttribute("style", "fill: black;");
+  }
+  else {
+    arrow_line.setAttribute("style", "stroke: red;");
+    arrow_head.setAttribute("style", "fill: red;");
+  }
+  
+}
 
 //Pagination
 

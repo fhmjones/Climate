@@ -197,7 +197,7 @@ body {
   margin-right: 30px;
   border: 1px solid black;
 }
-#arrow_container {
+#arrow_container, #drawn_arrows {
   float: left;
   width: 148px;
   height: 400px;
@@ -215,7 +215,7 @@ body {
   height: 20px;
 }
 
-.arrow {
+.arrow_line {
   stroke: rgb(0,0,0);
   stroke-width: 2;
   marker-end: url(#markerArrow);
