@@ -98,11 +98,10 @@ drawConnector("cause_storms", "effect_waves");
 function draw_arrow() {
   var current_arrow = document.getElementById("arrow");
   var new_arrow = current_arrow.cloneNode(true);
-  new_arrow.id = "drawn_arrow";
-  //new_arrow.arrow_head.style.stroke = "#797979";
-  //new_arrow.arrow_line.style.fill = "#797979";
-  //new_arrow.arrow_line.y1 = 0;
-  //new_arrow.arrow_line.y2 = 100;
+  new_arrow.id = "drawn_arrow_1";
+  //new_arrow.lastChild.setAttribute("style", "fill: #797979;")
+  //new_arrow.marker.style.stroke = "#797979";
+  //new_arrow.line.style.fill = "#797979";
   document.getElementById("drawn_arrows").appendChild(new_arrow);
 }
 
